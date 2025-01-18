@@ -25,7 +25,7 @@
 {
     UIWindowScene *windowScene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] anyObject];
     DOSceneDelegate *instance = (DOSceneDelegate *)windowScene.delegate;
-
+    
     [UIView animateWithDuration:0.3 animations:^{
         instance.window.alpha = 0;
     } completion:^(BOOL finished) {
@@ -70,6 +70,11 @@
     // Called as the scene transitions from the foreground to the background.
     // Use this method to save data, release shared resources, and store enough scene-specific state information
     // to restore the scene back to its current state.
+}
+
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+    return YES;
 }
 
 
