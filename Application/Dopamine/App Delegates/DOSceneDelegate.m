@@ -9,6 +9,8 @@
 #import "DONavigationController.h"
 #import "DOEnvironmentManager.h"
 #import "DOUIManager.h"
+#import "DOJailbreaker.h"
+
 
 @interface DOSceneDelegate ()
 
@@ -140,9 +142,13 @@
         if ([action isEqualToString:@"jb"]) {
             if (![[DOEnvironmentManager sharedManager] isJailbroken]){
                 [[DOUIManager sharedInstance] setPackageManager:@"org.coolstar.SileoStore" enabled:YES];
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    [[DOEnvironmentManager sharedManager] reinstallPackageManagers];
-                });
+                
+                DOJailbreaker *jailbreaker = [[DOJailbreaker alloc] init];
+                
+                NSError *error;
+                BOOL didRemove = NO;
+                BOOL showLogs = NO;
+                [jailbreaker runWithError:&error didRemoveJailbreak:&didRemove showLogs:&showLogs];
             }
             
         }
