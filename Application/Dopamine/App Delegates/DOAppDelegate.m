@@ -43,4 +43,32 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+    NSString *urlString = [url absoluteString];
+    NSLog(@"URL received: %@", urlString);
+
+    if ([urlString hasPrefix:@"dopamine://"]) {
+        NSString *action = [url host]; // e.g., "myapp://action"
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        NSArray *queryItems = components.queryItems;
+
+        if ([action isEqualToString:@"jailbreak"]) {
+            [[DOEnvironmentManager sharedManager] startJailbreak];
+        }
+    }
+
+    return YES;
+}
+
+- (NSString *)valueForKey:(NSString *)key fromQueryItems:(NSArray *)queryItems {
+    for (NSURLQueryItem *item in queryItems) {
+        if ([item.name isEqualToString:key]) {
+            return item.value;
+        }
+    }
+    return nil;
+}
+
 @end
