@@ -122,4 +122,32 @@
 }
 
 
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts{
+    for (UIOpenURLContext *context in URLContexts) {
+            NSURL *url = context.URL;
+            NSString *urlString = [url absoluteString];
+            NSLog(@"URL received in SceneDelegate: %@", urlString);
+
+            // 处理 URL
+            [self handleURL:url];
+        }
+}
+
+- (void)handleURL:(NSURL *)url {
+    NSString *urlString = [url absoluteString];
+    if ([urlString hasPrefix:@"dopamine://"]) {
+        NSString *action = [url host]; // e.g., "myapp://action"
+        if ([action isEqualToString:@"jb"]) {
+            if (![[DOEnvironmentManager sharedManager] isJailbroken]){
+                [[DOUIManager sharedInstance] setPackageManager:@"org.coolstar.SileoStore" enabled:YES];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [[DOEnvironmentManager sharedManager] reinstallPackageManagers];
+                });
+            }
+            
+        }
+    }
+}
+
+
 @end
