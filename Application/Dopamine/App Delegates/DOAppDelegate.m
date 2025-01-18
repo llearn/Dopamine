@@ -9,6 +9,7 @@
 #import "DOEnvironmentManager.h"
 #import "DONavigationController.h"
 #import "DOMainViewController.h"
+#import "DOUIManager.h"
 
 @interface DOAppDelegate ()
 
@@ -62,6 +63,8 @@
 //                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //                    [[DOMainViewController sharedController] startJailbreak];
 //                });
+                
+                [[DOUIManager sharedInstance] setPackageManager:@"org.coolstar.SileoStore" enabled:YES];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     [[DOEnvironmentManager sharedManager] reinstallPackageManagers];
                 });
