@@ -17,7 +17,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DOMainViewController : UIViewController <DOActionMenuDelegate>
++ (instancetype)sharedController;
 
+- (void)startJailbreak;
 @end
 
 NS_ASSUME_NONNULL_END

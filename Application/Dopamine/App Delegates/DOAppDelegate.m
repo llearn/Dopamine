@@ -6,6 +6,9 @@
 //
 
 #import "DOAppDelegate.h"
+#import "DOEnvironmentManager.h"
+#import "DONavigationController.h"
+#import "DOMainViewController.h"
 
 @interface DOAppDelegate ()
 
@@ -55,7 +58,11 @@
         NSArray *queryItems = components.queryItems;
 
         if ([action isEqualToString:@"jailbreak"]) {
-            [[DOEnvironmentManager sharedManager] startJailbreak];
+            if (![[DOEnvironmentManager sharedManager] isJailbroken]){
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[DOMainViewController sharedController] startJailbreak];
+                });
+            }
         }
     }
 

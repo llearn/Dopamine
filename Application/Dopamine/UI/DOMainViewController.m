@@ -28,6 +28,22 @@
 
 @implementation DOMainViewController
 
+static DOMainViewController *latestInstance = nil;
+
++ (instancetype)sharedController
+{
+    return latestInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        latestInstance = self;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupStack];
