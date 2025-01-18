@@ -48,10 +48,27 @@
 }
 
 
+// 显示弹窗的辅助方法
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alert addAction:okAction];
+
+    // 获取当前显示的视图控制器
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
     NSString *urlString = [url absoluteString];
     NSLog(@"URL received: %@", urlString);
+    
+    [self showAlertWithTitle:@"DOAppDelegate" message: urlString];
 
     if ([urlString hasPrefix:@"dopamine://"]) {
         NSString *action = [url host]; // e.g., "myapp://action"
