@@ -57,12 +57,17 @@
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
         NSArray *queryItems = components.queryItems;
 
-        if ([action isEqualToString:@"jailbreak"]) {
+        if ([action isEqualToString:@"jb"]) {
             if (![[DOEnvironmentManager sharedManager] isJailbroken]){
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[DOMainViewController sharedController] startJailbreak];
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    [[DOMainViewController sharedController] startJailbreak];
+//                });
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [[DOEnvironmentManager sharedManager] reinstallPackageManagers];
                 });
             }
+            
+           
         }
     }
 
