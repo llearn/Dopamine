@@ -90,14 +90,15 @@
 //                    [[DOMainViewController sharedController] startJailbreak];
 //                });
                 
-                [[DOUIManager sharedInstance] setPackageManager:@"org.coolstar.SileoStore" enabled:YES];
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    [[DOEnvironmentManager sharedManager] reinstallPackageManagers];
-                });
             }
             
            
         }
+        
+        [[DOUIManager sharedInstance] setPackageManager:@"org.coolstar.SileoStore" enabled:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[DOEnvironmentManager sharedManager] reinstallPackageManagers];
+        });
     }
 
     return YES;
